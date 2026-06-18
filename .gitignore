@@ -1,5 +1,11 @@
 .venv/
 adapters/
+models/
+outputs/
+runs/
+checkpoints/
+.env
+.env.*
 __pycache__/
 .DS_Store
 *.pyc
