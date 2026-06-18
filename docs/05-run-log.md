@@ -11,6 +11,8 @@
 - 创建 `.venv`。
 - 安装 `mlx-lm`。
 - 数据校验通过。
+- 初始化本地 git 仓库。
+- 创建 GitHub private 仓库并推送 `main` 分支。
 
 数据校验结果：
 
@@ -60,4 +62,18 @@ HTTPSConnection(host='huggingface.co', port=443): Failed to establish a new conn
 ```bash
 MODEL=/path/to/local/model make baseline
 MODEL=/path/to/local/model make train-smoke
+```
+
+## GitHub 仓库
+
+远端仓库：
+
+```text
+https://github.com/jackjin1997/minimal-finetune-practice
+```
+
+当前远端名：
+
+```text
+origin
 ```
