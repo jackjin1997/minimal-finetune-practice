@@ -30,6 +30,21 @@ Expected output shape:
 
 This scenario is useful for learning because the result is easy to inspect: valid JSON, fixed fields, constrained enum values, extracted dates, and stable wording.
 
+## Two Core Concepts
+
+Fine-tuning is the goal: take an already trained base model and train it a bit more on your own data so it prefers a task behavior, output format, or writing style.
+
+LoRA is the method: freeze the base model and train a small adapter. In this project, only `2.884M / 596.050M` parameters are trainable, about `0.484%`.
+
+The relationship is:
+
+```text
+Fine-tuning = teach a task behavior
+LoRA = a parameter-efficient way to fine-tune
+```
+
+Fine-tuning is a good fit for fixed formats, classification, extraction, and style. It is not a good replacement for a live knowledge base. For frequently changing knowledge, prefer RAG or tool use.
+
 ## Stack
 
 - Machine: Mac with Apple Silicon.

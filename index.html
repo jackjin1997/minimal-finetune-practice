@@ -580,6 +580,53 @@
       </div>
     </section>
 
+    <section id="concepts">
+      <h2 data-lang="zh">先理解两个概念：微调和 LoRA</h2>
+      <h2 data-lang="en">Two Concepts First: Fine-Tuning and LoRA</h2>
+      <p class="section-lead" data-lang="zh">先把词讲清楚，再跑命令。微调是目标：让模型更擅长某个任务行为。LoRA 是一种实现方式：用很少的可训练参数完成这个目标。</p>
+      <p class="section-lead" data-lang="en">Clarify the terms before running commands. Fine-tuning is the goal: make a model better at a specific task behavior. LoRA is one way to do it: train a small number of adapter parameters.</p>
+      <div class="lesson-grid">
+        <article class="panel">
+          <h3 data-lang="zh">微调是什么</h3>
+          <h3 data-lang="en">What is fine-tuning?</h3>
+          <p data-lang="zh">微调就是拿一个已经训练好的基础模型，用你自己的小数据再训练一小段，让它更倾向某种固定任务、格式或表达风格。</p>
+          <p data-lang="en">Fine-tuning means taking an already trained base model and training it a bit more on your own data so it prefers a specific task, format, or style.</p>
+          <span class="mini-label" data-lang="zh">这次学什么</span>
+          <span class="mini-label" data-lang="en">What it learns here</span>
+          <pre>自然语言需求 -> 固定 JSON schema
+type / priority / due / owner / labels / brief</pre>
+        </article>
+        <article class="panel">
+          <h3 data-lang="zh">LoRA 是什么</h3>
+          <h3 data-lang="en">What is LoRA?</h3>
+          <p data-lang="zh">LoRA 是 Low-Rank Adaptation。它冻结基础模型，只训练一小组 adapter 参数；推理时把 base model 和 adapter 一起加载。</p>
+          <p data-lang="en">LoRA means Low-Rank Adaptation. It freezes the base model and trains a small adapter; at inference time, the base model and adapter are loaded together.</p>
+          <span class="mini-label" data-lang="zh">这次训练量</span>
+          <span class="mini-label" data-lang="en">Trainable size here</span>
+          <pre>2.884M / 596.050M parameters
+= 0.484% trainable</pre>
+        </article>
+      </div>
+      <div class="code-grid" style="margin-top:14px">
+        <div class="terminal">
+          <div class="terminal-head"><span data-lang="zh">关系</span><span data-lang="en">relationship</span></div>
+          <pre data-lang="zh">微调 = 让模型学习一个任务行为
+LoRA = 用很少参数完成微调的一种方法</pre>
+          <pre data-lang="en">Fine-tuning = teach a task behavior
+LoRA = a parameter-efficient way to fine-tune</pre>
+        </div>
+        <div class="terminal">
+          <div class="terminal-head"><span data-lang="zh">不要误用</span><span data-lang="en">do not misuse it</span></div>
+          <pre data-lang="zh">适合：固定格式、分类、抽取、风格
+不适合：实时知识、经常变化的文档
+动态知识优先考虑 RAG 或工具调用</pre>
+          <pre data-lang="en">Good for: format, classification, extraction, style
+Bad for: real-time facts and frequently changing docs
+Use RAG or tools for dynamic knowledge</pre>
+        </div>
+      </div>
+    </section>
+
     <section id="why">
       <h2 data-lang="zh">为什么选这个场景</h2>
       <h2 data-lang="en">Why This Scenario</h2>
