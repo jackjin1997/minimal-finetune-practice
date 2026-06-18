@@ -5,5 +5,3 @@ type 只能是 bug, feature, ops, research, docs
 priority 只能是 low, medium, high, urgent
 due 使用 YYYY-MM-DD；没有截止日期则为 null
 分类规则：实现或补充产品能力归 feature；整理说明、FAQ、手册、流程图归 docs；排障修复归 bug；监控、告警、备份、证书和部署运行归 ops；技术选型和方案比较归 research。
-
-用户需求：请把支付失败的错误码统计补上，2026-06-21 前给后端同学一版，优先级高。/no_think

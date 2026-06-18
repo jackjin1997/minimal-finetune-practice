@@ -17,10 +17,10 @@
 数据校验结果：
 
 ```text
-train.jsonl: 20 samples
+train.jsonl: 26 samples
 valid.jsonl: 4 samples
 test.jsonl: 4 samples
-OK: 28 samples
+OK: 34 samples
 ```
 
 当前系统 Python：
@@ -63,6 +63,55 @@ HTTPSConnection(host='huggingface.co', port=443): Failed to establish a new conn
 MODEL=/path/to/local/model make baseline
 MODEL=/path/to/local/model make train-smoke
 ```
+
+后续使用镜像成功下载：
+
+```bash
+HF_ENDPOINT=https://hf-mirror.com make baseline
+```
+
+## 微调结果
+
+Baseline 曾输出 `<think>` 和解释性内容，没有稳定遵守“只输出 JSON”。
+
+40 step smoke train：
+
+```text
+Trainable parameters: 0.484% (2.884M/596.050M)
+Iter 40: Val loss 0.515
+Iter 40: Train loss 0.456
+Test loss 0.504, Test ppl 1.656
+```
+
+240 step train 在小数据上过拟合：
+
+```text
+Iter 240: Val loss 0.703
+Iter 240: Train loss 0.023
+Test loss 0.695, Test ppl 2.004
+```
+
+补充 6 条边界样本后，使用 `--mask-prompt` 训练 100 step：
+
+```text
+Iter 100: Val loss 0.326
+Iter 100: Train loss 0.018
+Test loss 0.255, Test ppl 1.290
+```
+
+最终生成命令加入：
+
+```bash
+--chat-template-config '{"enable_thinking": false}'
+```
+
+最终示例输出：
+
+```json
+{"title":"补充支付失败错误码统计","type":"feature","priority":"high","due":"2026-06-21","owner":"后端","labels":["支付","失败","统计"],"brief":"整理支付失败错误码统计并补充至文档。"}
+```
+
+结论：最小微调闭环已经跑通。结果还不是产品级，因为 `brief` 仍有措辞偏差，下一轮应继续补数据而不是继续加训练步数。
 
 ## GitHub 仓库
 

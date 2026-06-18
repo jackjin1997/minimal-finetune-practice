@@ -33,6 +33,7 @@ model: Qwen/Qwen3-0.6B
 iters: 40
 batch-size: 1
 learning-rate: 1e-5
+mask-prompt: true
 adapter-path: adapters/task-json-qwen3-0.6b
 ```
 
@@ -42,10 +43,10 @@ adapter-path: adapters/task-json-qwen3-0.6b
 make train
 ```
 
-默认 `ITERS=240`。可以覆盖：
+默认 `ITERS=100`。可以覆盖：
 
 ```bash
-ITERS=300 make train
+ITERS=160 make train
 ```
 
 ## 4. Test
@@ -54,7 +55,7 @@ ITERS=300 make train
 make test
 ```
 
-这一步用 `data/test.jsonl` 看 loss，不要只看一个人工样例。
+这一步用 `data/test.jsonl` 看 loss，不要只看一个人工样例。`Makefile` 里的 test 也使用 `--mask-prompt`，和训练口径保持一致。
 
 ## 5. Generate
 
@@ -62,7 +63,7 @@ make test
 make generate
 ```
 
-它会加载同一个 base model 和 LoRA adapter，对 `prompts/task_json_prompt.txt` 生成结果。
+它会加载同一个 base model 和 LoRA adapter，对 `prompts/system.txt` 和 `prompts/user.txt` 生成结果。
 
 ## 6. 对比记录
 
@@ -83,3 +84,13 @@ after lora:
 ```
 
 如果输出格式不稳，优先补相似的训练样本，而不是先调复杂参数。
+
+## Qwen3 Thinking
+
+Qwen3 默认可能输出 `<think>...</think>`。本项目的 `Makefile` 已在生成命令里加入：
+
+```bash
+--chat-template-config '{"enable_thinking": false}'
+```
+
+这样更适合结构化 JSON 输出练习。

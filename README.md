@@ -54,6 +54,8 @@
 │   ├── 05-run-log.md
 │   └── 06-publish-github.md
 ├── prompts/
+│   ├── system.txt
+│   ├── user.txt
 │   └── task_json_prompt.txt
 ├── scripts/
 │   └── check_data.py
@@ -107,7 +109,7 @@ make generate
 
 ## 当前状态
 
-- 数据集已准备：20 条训练、4 条验证、4 条测试。
+- 数据集已准备：26 条训练、4 条验证、4 条测试。
 - 数据校验已通过：`make check-data`。
 - 本机已创建 `.venv` 并安装 `mlx-lm`。
 - Hugging Face 模型下载曾超时，排障记录见 [运行日志](docs/05-run-log.md)。

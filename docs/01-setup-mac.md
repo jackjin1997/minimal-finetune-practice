@@ -56,3 +56,9 @@ make baseline
 ```
 
 如果 Hugging Face 连接超时，先确认网络代理或镜像配置，再重试。
+
+例如：
+
+```bash
+HF_ENDPOINT=https://hf-mirror.com make baseline
+```
