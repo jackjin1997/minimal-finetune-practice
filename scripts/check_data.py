@@ -1,0 +1,80 @@
+#!/usr/bin/env python3
+import json
+import sys
+from pathlib import Path
+
+
+REQUIRED_FILES = ["train.jsonl", "valid.jsonl", "test.jsonl"]
+REQUIRED_ROLES = ["system", "user", "assistant"]
+
+
+def fail(message: str) -> None:
+    print(f"ERROR: {message}", file=sys.stderr)
+    raise SystemExit(1)
+
+
+def validate_file(path: Path) -> int:
+    if not path.exists():
+        fail(f"missing {path}")
+
+    count = 0
+    with path.open("r", encoding="utf-8") as handle:
+        for line_no, line in enumerate(handle, start=1):
+            line = line.strip()
+            if not line:
+                continue
+            count += 1
+            try:
+                item = json.loads(line)
+            except json.JSONDecodeError as exc:
+                fail(f"{path}:{line_no} invalid JSON: {exc}")
+
+            messages = item.get("messages")
+            if not isinstance(messages, list) or len(messages) != 3:
+                fail(f"{path}:{line_no} expected exactly 3 messages")
+
+            roles = [message.get("role") for message in messages]
+            if roles != REQUIRED_ROLES:
+                fail(f"{path}:{line_no} expected roles {REQUIRED_ROLES}, got {roles}")
+
+            for index, message in enumerate(messages):
+                content = message.get("content")
+                if not isinstance(content, str) or not content.strip():
+                    fail(f"{path}:{line_no} message {index} has empty content")
+
+            try:
+                payload = json.loads(messages[-1]["content"])
+            except json.JSONDecodeError as exc:
+                fail(f"{path}:{line_no} assistant content is not JSON: {exc}")
+
+            for key in ["title", "type", "priority", "due", "owner", "labels", "brief"]:
+                if key not in payload:
+                    fail(f"{path}:{line_no} assistant JSON missing {key}")
+
+            if payload["type"] not in ["bug", "feature", "ops", "research", "docs"]:
+                fail(f"{path}:{line_no} invalid type {payload['type']}")
+
+            if payload["priority"] not in ["low", "medium", "high", "urgent"]:
+                fail(f"{path}:{line_no} invalid priority {payload['priority']}")
+
+            if not isinstance(payload["labels"], list):
+                fail(f"{path}:{line_no} labels must be a list")
+
+    return count
+
+
+def main() -> None:
+    if len(sys.argv) != 2:
+        fail("usage: check_data.py <data_dir>")
+
+    data_dir = Path(sys.argv[1])
+    total = 0
+    for name in REQUIRED_FILES:
+        count = validate_file(data_dir / name)
+        total += count
+        print(f"{name}: {count} samples")
+    print(f"OK: {total} samples")
+
+
+if __name__ == "__main__":
+    main()
