@@ -51,9 +51,15 @@ git push -u origin main
 ```text
 .venv/
 adapters/
+models/
+outputs/
+runs/
+checkpoints/
+.env
+.env.*
 __pycache__/
-*.pyc
 .DS_Store
+*.pyc
 ```
 
 后续真实训练得到的 adapter 默认放在 `adapters/`，一般不直接提交到 GitHub。需要分享时，可以单独上传到模型仓库或 release。

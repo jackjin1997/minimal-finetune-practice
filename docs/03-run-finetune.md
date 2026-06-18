@@ -65,6 +65,14 @@ make generate
 
 它会加载同一个 base model 和 LoRA adapter，对 `prompts/system.txt` 和 `prompts/user.txt` 生成结果。
 
+更推荐再跑一次未见样例：
+
+```bash
+make generate-unseen
+```
+
+`generate-unseen` 使用 `prompts/user_unseen.txt`，该输入不在 train/valid/test 中，更适合观察泛化效果。
+
 ## 6. 对比记录
 
 建议把结果记录成：

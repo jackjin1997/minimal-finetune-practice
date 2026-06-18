@@ -41,10 +41,10 @@ make check-data
 当前项目应输出：
 
 ```text
-train.jsonl: 20 samples
+train.jsonl: 26 samples
 valid.jsonl: 4 samples
 test.jsonl: 4 samples
-OK: 28 samples
+OK: 34 samples
 ```
 
 ## 5. 模型下载
@@ -61,4 +61,10 @@ make baseline
 
 ```bash
 HF_ENDPOINT=https://hf-mirror.com make baseline
+```
+
+完成训练后，建议用未见样例检查效果：
+
+```bash
+HF_ENDPOINT=https://hf-mirror.com make generate-unseen
 ```

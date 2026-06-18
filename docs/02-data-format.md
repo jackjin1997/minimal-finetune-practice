@@ -33,6 +33,16 @@ type: bug, feature, ops, research, docs
 priority: low, medium, high, urgent
 ```
 
+分类规则：
+
+```text
+实现或补充产品能力归 feature。
+整理说明、FAQ、手册、流程图归 docs。
+排障修复归 bug。
+监控、告警、备份、证书和部署运行归 ops。
+技术选型和方案比较归 research。
+```
+
 ## user
 
 自然语言需求。
@@ -78,3 +88,6 @@ make check-data
 - assistant 内容是否是合法 JSON。
 - 字段是否完整。
 - `type` 和 `priority` 是否落在允许枚举里。
+- `due` 是否是 `YYYY-MM-DD` 或 `null`。
+- 是否有多余字段。
+- system prompt 是否和 `prompts/system.txt` 保持一致。

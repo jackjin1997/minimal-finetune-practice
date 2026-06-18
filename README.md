@@ -56,6 +56,7 @@
 ├── prompts/
 │   ├── system.txt
 │   ├── user.txt
+│   ├── user_unseen.txt
 │   └── task_json_prompt.txt
 ├── scripts/
 │   └── check_data.py
@@ -95,6 +96,7 @@ make train
 ```bash
 make test
 make generate
+make generate-unseen
 ```
 
 ## 学习路径
@@ -103,7 +105,7 @@ make generate
 2. 阅读 [数据格式](docs/02-data-format.md)，理解 `messages` 样本。
 3. 跑 `make baseline`，记录原模型表现。
 4. 跑 `make train-smoke`，先确认训练链路。
-5. 跑 `make train` 和 `make generate`，对比 adapter 前后输出。
+5. 跑 `make train`、`make test`、`make generate` 和 `make generate-unseen`，对比 adapter 前后输出。
 6. 改 10 条自己的样本，重新训练，观察模型是否更贴近你的格式。
 7. 按 [发布到 GitHub](docs/06-publish-github.md) 推到远端仓库。
 
@@ -112,7 +114,9 @@ make generate
 - 数据集已准备：26 条训练、4 条验证、4 条测试。
 - 数据校验已通过：`make check-data`。
 - 本机已创建 `.venv` 并安装 `mlx-lm`。
-- Hugging Face 模型下载曾超时，排障记录见 [运行日志](docs/05-run-log.md)。
+- 已通过 Hugging Face 镜像完成 baseline、LoRA 训练、test 和生成验证。
+- 当前最小闭环结果：`Test loss 0.240, Test ppl 1.272`。
+- 最终演示建议使用 `make generate-unseen`，避免用测试集样例高估效果。
 
 ## 一句话理解微调
 
