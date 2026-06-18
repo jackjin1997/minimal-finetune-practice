@@ -1,5 +1,7 @@
 # 最小微调模型实践
 
+[English](README.en.md) · [HTML 版本](index.html)
+
 用一台 Mac 跑通一次最小可理解的 LoRA 微调。
 
 这个项目的目标不是训练一个“厉害模型”，而是把微调学习路径压到最小：选一个明确场景，准备少量数据，跑原模型 baseline，做 LoRA 训练，再对比 adapter 前后的输出。
@@ -60,6 +62,8 @@
 │   └── task_json_prompt.txt
 ├── scripts/
 │   └── check_data.py
+├── index.html
+├── README.en.md
 ├── Makefile
 └── requirements.txt
 ```
@@ -117,6 +121,10 @@ make generate-unseen
 - 已通过 Hugging Face 镜像完成 baseline、LoRA 训练、test 和生成验证。
 - 当前最小闭环结果：`Test loss 0.240, Test ppl 1.272`。
 - 最终演示建议使用 `make generate-unseen`，避免用测试集样例高估效果。
+
+## HTML 版本
+
+如果主要阅读学习笔记，建议直接打开 [index.html](index.html)。它是中英文双语静态页面，不依赖外部资源。
 
 ## 一句话理解微调
 
