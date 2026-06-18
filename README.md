@@ -47,6 +47,33 @@ LoRA = 用很少参数完成微调的一种方法
 
 微调适合固定格式、分类、抽取和风格，不适合当实时知识库。经常变化的知识更适合 RAG 或工具调用。
 
+## LoRA 的生态位
+
+LoRA 不是产品，它是一种参数高效微调方法。它适合的位置是：
+
+```text
+Prompt 不够稳定
+RAG 解决不了行为问题
+全量微调又太贵
+=> 用 LoRA 训练一个小 adapter，让模型更稳定地执行目标行为
+```
+
+和其他方案的关系：
+
+- Prompt：不训练模型，最便宜，适合轻量约束。
+- RAG：不改权重，适合知识更新和可追溯问答。
+- 工具调用 / 约束解码：推理时强约束 JSON 或函数调用。
+- LoRA / QLoRA / DoRA：低成本改变模型行为。
+- 全量微调：训练更多权重，成本和风险更高。
+- DPO / ORPO / GRPO：偏好优化，通常在 SFT/LoRA 后面考虑。
+
+常见工具：
+
+- `mlx-lm`：适合 Apple Silicon 本地练习。
+- Hugging Face `peft`：覆盖 LoRA、IA3、Prompt tuning 等 PEFT 方法。
+- Unsloth：偏向更快、更省显存的 LoRA/QLoRA 训练体验。
+- Axolotl：配置化训练框架，覆盖 LoRA、QLoRA、DPO 等流程。
+
 ## 技术选择
 
 - 机器：Mac Apple Silicon 就够了。

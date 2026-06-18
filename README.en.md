@@ -45,6 +45,33 @@ LoRA = a parameter-efficient way to fine-tune
 
 Fine-tuning is a good fit for fixed formats, classification, extraction, and style. It is not a good replacement for a live knowledge base. For frequently changing knowledge, prefer RAG or tool use.
 
+## LoRA's Niche
+
+LoRA is not a product. It is a parameter-efficient fine-tuning method. Its practical niche is:
+
+```text
+Prompting is not stable enough
+RAG does not solve the behavior problem
+Full fine-tuning is too expensive
+=> Train a small LoRA adapter so the model follows the target behavior more consistently
+```
+
+How it relates to other options:
+
+- Prompting: no training, cheapest option, good for light constraints.
+- RAG: no weight changes, good for changing knowledge and traceable answers.
+- Tool calling / constrained decoding: enforce JSON or function calls at inference time.
+- LoRA / QLoRA / DoRA: low-cost behavior adaptation.
+- Full fine-tuning: trains more weights, with higher cost and risk.
+- DPO / ORPO / GRPO: preference optimization, often after SFT/LoRA.
+
+Common tools:
+
+- `mlx-lm`: good for local Apple Silicon practice.
+- Hugging Face `peft`: covers LoRA, IA3, prompt tuning, and other PEFT methods.
+- Unsloth: focuses on faster, lower-memory LoRA/QLoRA training.
+- Axolotl: config-driven training framework covering LoRA, QLoRA, DPO, and more.
+
 ## Stack
 
 - Machine: Mac with Apple Silicon.

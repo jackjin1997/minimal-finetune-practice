@@ -627,6 +627,84 @@ Use RAG or tools for dynamic knowledge</pre>
       </div>
     </section>
 
+    <section id="position">
+      <h2 data-lang="zh">LoRA 的生态位：它解决哪一类问题</h2>
+      <h2 data-lang="en">LoRA's Niche: What Problem It Solves</h2>
+      <p class="section-lead" data-lang="zh">LoRA 不是产品，也不是“让模型变聪明”的唯一办法。它的位置是：当 prompt 已经不够稳定、RAG 又解决不了行为问题、全量微调又太贵时，用少量参数把模型行为往目标任务推。</p>
+      <p class="section-lead" data-lang="en">LoRA is not a product, and it is not the only way to improve a model. Its niche is behavior adaptation when prompting is not stable enough, RAG does not solve the behavior problem, and full fine-tuning is too expensive.</p>
+      <div class="lesson-grid">
+        <article class="panel">
+          <h3 data-lang="zh">Prompt</h3>
+          <h3 data-lang="en">Prompting</h3>
+          <p data-lang="zh">不训练模型，只写更好的 system/user prompt。最便宜，适合轻量约束；但复杂格式可能不稳定。</p>
+          <p data-lang="en">No training. Improve system/user prompts. Cheapest option, good for light constraints, but complex formats can remain unstable.</p>
+        </article>
+        <article class="panel">
+          <h3 data-lang="zh">RAG</h3>
+          <h3 data-lang="en">RAG</h3>
+          <p data-lang="zh">不改变模型权重，把外部文档检索出来放进上下文。适合知识更新，不适合强行改变输出习惯。</p>
+          <p data-lang="en">Do not change weights. Retrieve external documents into context. Good for changing knowledge, not for deeply changing output habits.</p>
+        </article>
+        <article class="panel">
+          <h3 data-lang="zh">工具调用 / 约束解码</h3>
+          <h3 data-lang="en">Tools / constrained decoding</h3>
+          <p data-lang="zh">在推理时强制模型调用函数或满足 JSON schema。适合强格式保证，常和 prompt 或 LoRA 搭配。</p>
+          <p data-lang="en">Force function calls or JSON schema at inference time. Useful for hard format guarantees, often combined with prompting or LoRA.</p>
+        </article>
+        <article class="panel">
+          <h3 data-lang="zh">LoRA / QLoRA / DoRA</h3>
+          <h3 data-lang="en">LoRA / QLoRA / DoRA</h3>
+          <p data-lang="zh">参数高效微调。适合固定格式、分类、抽取、风格和领域流程。Mac 本地练习优先选它。</p>
+          <p data-lang="en">Parameter-efficient fine-tuning. Good for fixed formats, classification, extraction, style, and domain workflows. A good default for Mac practice.</p>
+        </article>
+        <article class="panel">
+          <h3 data-lang="zh">全量微调</h3>
+          <h3 data-lang="en">Full fine-tuning</h3>
+          <p data-lang="zh">训练更多甚至全部权重。能力上限高，但成本、数据要求和灾难性遗忘风险也更高。</p>
+          <p data-lang="en">Train many or all weights. Higher ceiling, but higher cost, data requirements, and risk of catastrophic forgetting.</p>
+        </article>
+        <article class="panel">
+          <h3 data-lang="zh">偏好优化</h3>
+          <h3 data-lang="en">Preference optimization</h3>
+          <p data-lang="zh">如 DPO/ORPO/GRPO，更偏向“哪个回答更好”的对齐阶段，通常在 SFT/LoRA 之后考虑。</p>
+          <p data-lang="en">Methods like DPO, ORPO, and GRPO optimize which answer is preferred, often after SFT/LoRA.</p>
+        </article>
+      </div>
+      <div class="note" style="margin-top:14px" data-lang="zh">本项目选 LoRA 的原因：我们不是要补知识，而是要让模型稳定执行“需求 -> JSON”的行为；同时只有 Mac，本地成本要低。</div>
+      <div class="note" style="margin-top:14px" data-lang="en">This project uses LoRA because the goal is not new knowledge; it is stable “request -> JSON” behavior, with a low-cost local Mac setup.</div>
+
+      <h3 style="margin-top:24px" data-lang="zh">除了 LoRA，还有哪些产品和工具</h3>
+      <h3 style="margin-top:24px" data-lang="en">Products and tools beyond LoRA</h3>
+      <div class="code-grid">
+        <div class="terminal">
+          <div class="terminal-head"><span data-lang="zh">方法层</span><span data-lang="en">method layer</span></div>
+          <pre data-lang="zh">QLoRA：量化后训练 LoRA，省内存
+DoRA：LoRA 的变体，分解权重幅度和方向
+IA3：训练更少的缩放向量
+Prompt / Prefix tuning：训练软提示
+Full fine-tuning：训练模型权重本体
+DPO / ORPO / GRPO：偏好优化</pre>
+          <pre data-lang="en">QLoRA: quantized LoRA for lower memory
+DoRA: LoRA variant that decomposes magnitude and direction
+IA3: train small activation-scaling vectors
+Prompt / Prefix tuning: train soft prompts
+Full fine-tuning: train model weights directly
+DPO / ORPO / GRPO: preference optimization</pre>
+        </div>
+        <div class="terminal">
+          <div class="terminal-head"><span data-lang="zh">工具层</span><span data-lang="en">tool layer</span></div>
+          <pre data-lang="zh">MLX-LM：Apple Silicon 本地训练和推理
+Hugging Face PEFT：LoRA/IA3/Prompt tuning 等 PEFT 方法
+Unsloth：更省显存、更快的 LoRA/QLoRA 训练体验
+Axolotl：配置化训练框架，覆盖 LoRA、QLoRA、DPO 等</pre>
+          <pre data-lang="en">MLX-LM: local Apple Silicon training/inference
+Hugging Face PEFT: LoRA, IA3, prompt tuning, and other PEFT methods
+Unsloth: memory-efficient and faster LoRA/QLoRA training
+Axolotl: config-driven training covering LoRA, QLoRA, DPO, and more</pre>
+        </div>
+      </div>
+    </section>
+
     <section id="why">
       <h2 data-lang="zh">为什么选这个场景</h2>
       <h2 data-lang="en">Why This Scenario</h2>
