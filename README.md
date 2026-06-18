@@ -124,7 +124,7 @@ make generate-unseen
 
 ## HTML 版本
 
-如果主要阅读学习笔记，建议直接打开 [index.html](index.html)。它是中英文双语静态页面，不依赖外部资源。
+如果主要阅读学习笔记，建议直接打开 [index.html](index.html)。它是中英文双语 step-by-step 教程，不依赖外部资源，按“学习目标 -> 原理 -> 操作步骤 -> 结果和误区”的顺序组织。
 
 ## 一句话理解微调
 

@@ -367,6 +367,82 @@
       color: #63350a;
     }
 
+    .lesson-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .principle-row {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .diagram {
+      display: grid;
+      gap: 10px;
+      align-content: center;
+      min-height: 100%;
+    }
+
+    .diagram-box {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      padding: 14px;
+    }
+
+    .diagram-box strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .diagram-box small {
+      color: var(--muted);
+    }
+
+    .arrow {
+      color: var(--muted);
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .tutorial {
+      display: grid;
+      gap: 12px;
+    }
+
+    .tutorial-step {
+      display: grid;
+      grid-template-columns: 48px minmax(0, 1fr);
+      gap: 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      padding: 16px;
+    }
+
+    .tutorial-step .step-number {
+      margin: 0;
+    }
+
+    .tutorial-step p {
+      margin: 0 0 10px;
+      color: var(--muted);
+    }
+
+    .mini-label {
+      display: inline-block;
+      margin: 8px 0 6px;
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
     .footer {
       padding: 28px 0 44px;
       color: var(--muted);
@@ -394,13 +470,19 @@
 
     @media (max-width: 900px) {
       .hero,
-      .code-grid {
+      .code-grid,
+      .principle-row,
+      .lesson-grid {
         grid-template-columns: 1fr;
       }
 
       .grid,
       .metrics,
       .flow {
+        grid-template-columns: 1fr;
+      }
+
+      .tutorial-step {
         grid-template-columns: 1fr;
       }
 
@@ -442,10 +524,10 @@
         <p class="lead" data-lang="zh">从自然语言需求到结构化任务 JSON：准备少量数据，观察 baseline，训练 LoRA adapter，测试并用未见样例验证泛化。</p>
         <p class="lead" data-lang="en">Natural-language task request to structured JSON: prepare a tiny dataset, inspect the baseline, train a LoRA adapter, test it, and verify with an unseen prompt.</p>
         <div class="hero-actions">
-          <a class="primary" href="#run" data-lang="zh">查看运行步骤</a>
-          <a class="primary" href="#run" data-lang="en">View Run Steps</a>
-          <a class="secondary" href="#results" data-lang="zh">查看结果</a>
-          <a class="secondary" href="#results" data-lang="en">View Results</a>
+          <a class="primary" href="#tutorial" data-lang="zh">按步骤学习</a>
+          <a class="primary" href="#tutorial" data-lang="en">Learn Step by Step</a>
+          <a class="secondary" href="#principle" data-lang="zh">先看原理</a>
+          <a class="secondary" href="#principle" data-lang="en">Understand the Principle</a>
         </div>
       </div>
       <div class="terminal" aria-label="Final unseen output">
@@ -462,6 +544,39 @@
   "labels": ["财务", "发票", "统计"],
   "brief": "在财务后台补充发票开具失败原因统计入口。"
 }</pre>
+      </div>
+    </section>
+
+    <section id="goals">
+      <h2 data-lang="zh">读完应该学会什么</h2>
+      <h2 data-lang="en">What You Should Understand</h2>
+      <p class="section-lead" data-lang="zh">这不是一个展示页，而是一条最小学习路线。读完并跑完命令后，你应该能解释微调为什么有效、什么时候该微调、每一步在验证什么。</p>
+      <p class="section-lead" data-lang="en">This is a learning path, not just a showcase. After reading and running the commands, you should be able to explain why fine-tuning works, when to use it, and what each step verifies.</p>
+      <div class="lesson-grid">
+        <article class="panel">
+          <h3 data-lang="zh">原理</h3>
+          <h3 data-lang="en">Principle</h3>
+          <p data-lang="zh">LoRA 冻结 base model，只训练少量 adapter 参数，让模型更倾向某种输出行为。</p>
+          <p data-lang="en">LoRA freezes the base model and trains a small adapter so the model prefers a target behavior.</p>
+        </article>
+        <article class="panel">
+          <h3 data-lang="zh">步骤</h3>
+          <h3 data-lang="en">Steps</h3>
+          <p data-lang="zh">baseline、数据校验、训练、test、未见样例验证，每一步都有不同目的。</p>
+          <p data-lang="en">Baseline, data validation, training, test, and unseen generation each answer a different question.</p>
+        </article>
+        <article class="panel">
+          <h3 data-lang="zh">判断</h3>
+          <h3 data-lang="en">Judgment</h3>
+          <p data-lang="zh">loss 下降不等于产品可用；要看验证集、测试集和未见样例是否一致。</p>
+          <p data-lang="en">Lower loss is not enough. Validation, test, and unseen prompts must tell a consistent story.</p>
+        </article>
+        <article class="panel">
+          <h3 data-lang="zh">边界</h3>
+          <h3 data-lang="en">Boundary</h3>
+          <p data-lang="zh">微调适合稳定格式和行为，不适合当实时知识库；知识更新更适合 RAG 或工具。</p>
+          <p data-lang="en">Fine-tuning fits stable formats and behavior. Dynamic knowledge is usually better handled by RAG or tools.</p>
+        </article>
       </div>
     </section>
 
@@ -482,22 +597,134 @@
       </div>
     </section>
 
-    <section id="flow">
-      <h2 data-lang="zh">完整流程</h2>
-      <h2 data-lang="en">Workflow</h2>
-      <div class="flow" data-lang="zh">
-        <div class="step"><span class="step-number">1</span><h3>准备环境</h3><p>创建 `.venv`，安装 `mlx-lm`。</p></div>
-        <div class="step"><span class="step-number">2</span><h3>校验数据</h3><p>检查 JSONL、schema、system prompt。</p></div>
-        <div class="step"><span class="step-number">3</span><h3>跑 baseline</h3><p>观察原模型是否会输出解释或 `<think>`。</p></div>
-        <div class="step"><span class="step-number">4</span><h3>训练 LoRA</h3><p>100 iters，`--mask-prompt`。</p></div>
-        <div class="step"><span class="step-number">5</span><h3>未见样例</h3><p>用 `generate-unseen` 检查泛化。</p></div>
+    <section id="principle">
+      <h2 data-lang="zh">微调原理：这次到底训练了什么</h2>
+      <h2 data-lang="en">Fine-Tuning Principle: What Changed</h2>
+      <p class="section-lead" data-lang="zh">这次不是把一批知识塞进模型，而是用样本把模型的输出行为往“只输出固定 JSON schema”这个方向推。base model 保持不变，LoRA adapter 学会任务偏好。</p>
+      <p class="section-lead" data-lang="en">We are not stuffing facts into the model. We are using examples to push the output behavior toward a fixed JSON schema. The base model stays frozen, and the LoRA adapter learns the task preference.</p>
+      <div class="principle-row">
+        <div class="diagram">
+          <div class="diagram-box">
+            <strong data-lang="zh">Base model</strong>
+            <strong data-lang="en">Base model</strong>
+            <small data-lang="zh">Qwen3-0.6B，通用语言能力，训练时冻结。</small>
+            <small data-lang="en">Qwen3-0.6B, general language ability, frozen during LoRA training.</small>
+          </div>
+          <div class="arrow">+</div>
+          <div class="diagram-box">
+            <strong data-lang="zh">LoRA adapter</strong>
+            <strong data-lang="en">LoRA adapter</strong>
+            <small data-lang="zh">只训练 2.884M 参数，占 596.050M 参数的 0.484%。</small>
+            <small data-lang="en">Only 2.884M trainable parameters, 0.484% of 596.050M total parameters.</small>
+          </div>
+          <div class="arrow">=</div>
+          <div class="diagram-box">
+            <strong data-lang="zh">目标行为</strong>
+            <strong data-lang="en">Target behavior</strong>
+            <small data-lang="zh">更稳定地产生 JSON、字段、枚举、日期和简短摘要。</small>
+            <small data-lang="en">More stable JSON, fields, enum values, dates, and concise summaries.</small>
+          </div>
+        </div>
+        <div class="panel">
+          <h3 data-lang="zh">用 loss 理解训练</h3>
+          <h3 data-lang="en">Understanding Training Through Loss</h3>
+          <p data-lang="zh">训练时，模型看到 system + user，并尝试预测 assistant 的 JSON。预测越接近期望答案，loss 越低。`--mask-prompt` 的作用是只让 assistant 输出部分参与主要优化，避免模型把输入提示本身也当成学习目标。</p>
+          <p data-lang="en">During training, the model sees system + user and predicts the assistant JSON. The closer the prediction is to the target answer, the lower the loss. `--mask-prompt` focuses optimization on the assistant output instead of also learning the input prompt.</p>
+          <p data-lang="zh">但 loss 低不等于一定好。我们 240 step 时训练 loss 很低，验证和测试反而变差，这就是小数据过拟合。最终选择 100 step，是因为验证、测试和未见样例更一致。</p>
+          <p data-lang="en">Low loss is not automatically good. At 240 iterations the train loss was very low, but validation and test got worse: overfitting on tiny data. We kept 100 iterations because validation, test, and unseen generation were more consistent.</p>
+        </div>
       </div>
-      <div class="flow" data-lang="en">
-        <div class="step"><span class="step-number">1</span><h3>Set Up</h3><p>Create `.venv` and install `mlx-lm`.</p></div>
-        <div class="step"><span class="step-number">2</span><h3>Validate Data</h3><p>Check JSONL, schema, and the system prompt.</p></div>
-        <div class="step"><span class="step-number">3</span><h3>Baseline</h3><p>Inspect whether the base model explains or emits `<think>`.</p></div>
-        <div class="step"><span class="step-number">4</span><h3>Train LoRA</h3><p>100 iterations with `--mask-prompt`.</p></div>
-        <div class="step"><span class="step-number">5</span><h3>Unseen Prompt</h3><p>Use `generate-unseen` to check generalization.</p></div>
+    </section>
+
+    <section id="tutorial">
+      <h2 data-lang="zh">Step by step：从零跑一遍</h2>
+      <h2 data-lang="en">Step by Step: Run the Loop</h2>
+      <p class="section-lead" data-lang="zh">每一步都回答一个问题。不要跳过 baseline、test 和未见样例，它们分别帮助你判断“原模型问题是什么”“adapter 有没有学到”“有没有只是背测试样例”。</p>
+      <p class="section-lead" data-lang="en">Each step answers one question. Do not skip baseline, test, or unseen generation: they tell you what the base model fails at, whether the adapter learned, and whether it merely memorized the test sample.</p>
+      <div class="tutorial">
+        <article class="tutorial-step">
+          <span class="step-number">0</span>
+          <div>
+            <h3 data-lang="zh">先定义任务边界</h3>
+            <h3 data-lang="en">Define the task boundary</h3>
+            <p data-lang="zh">本项目只训练“自然语言需求 -> 固定 JSON”。这让结果可检查，也避免把微调误用成知识库。</p>
+            <p data-lang="en">This project only trains “task request -> fixed JSON”. The result is easy to inspect, and it avoids treating fine-tuning as a knowledge database.</p>
+            <span class="mini-label">output</span>
+            <pre>title, type, priority, due, owner, labels, brief</pre>
+          </div>
+        </article>
+        <article class="tutorial-step">
+          <span class="step-number">1</span>
+          <div>
+            <h3 data-lang="zh">准备 Mac 环境</h3>
+            <h3 data-lang="en">Set up the Mac environment</h3>
+            <p data-lang="zh">创建虚拟环境并安装 `mlx-lm`。如果 Python 版本较旧，可能会安装兼容的旧版 `mlx-lm`。</p>
+            <p data-lang="en">Create a virtual environment and install `mlx-lm`. Older Python versions may resolve to an older compatible `mlx-lm`.</p>
+            <span class="mini-label">command</span>
+            <pre>python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt</pre>
+          </div>
+        </article>
+        <article class="tutorial-step">
+          <span class="step-number">2</span>
+          <div>
+            <h3 data-lang="zh">校验训练数据</h3>
+            <h3 data-lang="en">Validate the dataset</h3>
+            <p data-lang="zh">先保证 JSONL、schema、枚举、日期格式和 system prompt 一致。数据不稳，训练结果一定不稳。</p>
+            <p data-lang="en">Check JSONL, schema, enum values, date format, and system prompt consistency first. Unstable data produces unstable training.</p>
+            <span class="mini-label">command</span>
+            <pre>make check-data</pre>
+            <span class="mini-label">expected</span>
+            <pre>train.jsonl: 26 samples
+valid.jsonl: 4 samples
+test.jsonl: 4 samples
+OK: 34 samples</pre>
+          </div>
+        </article>
+        <article class="tutorial-step">
+          <span class="step-number">3</span>
+          <div>
+            <h3 data-lang="zh">跑 baseline，先看原模型</h3>
+            <h3 data-lang="en">Run the baseline first</h3>
+            <p data-lang="zh">baseline 告诉你“为什么要微调”。本次原模型会输出 `<think>` 和解释，没有稳定只输出 JSON。</p>
+            <p data-lang="en">The baseline tells you why fine-tuning is needed. Here the base model emitted `<think>` and explanations instead of stable JSON only.</p>
+            <span class="mini-label">command</span>
+            <pre>HF_ENDPOINT=https://hf-mirror.com make baseline</pre>
+          </div>
+        </article>
+        <article class="tutorial-step">
+          <span class="step-number">4</span>
+          <div>
+            <h3 data-lang="zh">训练 LoRA adapter</h3>
+            <h3 data-lang="en">Train the LoRA adapter</h3>
+            <p data-lang="zh">只训练 adapter，不改 base model。`--mask-prompt` 让训练主要关注 assistant JSON 输出。</p>
+            <p data-lang="en">Train only the adapter, not the base model. `--mask-prompt` focuses training on the assistant JSON output.</p>
+            <span class="mini-label">command</span>
+            <pre>HF_ENDPOINT=https://hf-mirror.com make train</pre>
+          </div>
+        </article>
+        <article class="tutorial-step">
+          <span class="step-number">5</span>
+          <div>
+            <h3 data-lang="zh">用 test loss 检查泛化方向</h3>
+            <h3 data-lang="en">Use test loss to check generalization</h3>
+            <p data-lang="zh">训练 loss 只能说明模型贴近训练集；test loss 更能提醒你是否过拟合。这里 240 step 过拟合，100 step 更稳。</p>
+            <p data-lang="en">Train loss only shows fit to the training set. Test loss is better at warning about overfitting. Here 240 steps overfit, while 100 steps was more stable.</p>
+            <span class="mini-label">result</span>
+            <pre>Test loss 0.240, Test ppl 1.272</pre>
+          </div>
+        </article>
+        <article class="tutorial-step">
+          <span class="step-number">6</span>
+          <div>
+            <h3 data-lang="zh">最后用未见样例验证</h3>
+            <h3 data-lang="en">Verify with an unseen prompt</h3>
+            <p data-lang="zh">不要只用测试集同款 prompt 展示效果。`generate-unseen` 用不在 train/valid/test 的输入，看模型是否真的学到 schema 和分类规则。</p>
+            <p data-lang="en">Do not showcase only a test-like prompt. `generate-unseen` uses an input outside train/valid/test to check whether the model learned the schema and classification rules.</p>
+            <span class="mini-label">command</span>
+            <pre>HF_ENDPOINT=https://hf-mirror.com make generate-unseen</pre>
+          </div>
+        </article>
       </div>
     </section>
 

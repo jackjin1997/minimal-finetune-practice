@@ -97,7 +97,7 @@ Generated output:
 
 ## HTML Notes
 
-The visual bilingual version is available in [index.html](index.html). It is a static file with no external dependencies.
+The visual bilingual version is available in [index.html](index.html). It is a static step-by-step tutorial with no external dependencies, organized as learning goals, principle, run steps, results, and pitfalls.
 
 ## License
 
